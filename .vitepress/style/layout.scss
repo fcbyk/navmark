@@ -44,7 +44,14 @@
 
     .vp-doc a {
         text-decoration-line: none;
-      }
+    }
+
+    /* 移动端 VPDoc 样式覆盖 */
+    @media (max-width: 640px) {
+        .VPDoc {
+            padding: 0 !important;
+        }
+    }
 }
 
 // 导航栏不显示

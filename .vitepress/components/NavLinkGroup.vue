@@ -16,64 +16,65 @@ const formatTitle = computed(() => {
 </script>
 
 <template>
-  <h3 v-if="title" :id="formatTitle" tabindex="-1">
-    {{ title }}
-    <a class="header-anchor" :href="`#${formatTitle}`" aria-hidden="true"></a>
-  </h3>
-  <div class="nav-links">
-    <NavLinkItem
-      v-for="{ icon, title, desc, link } in items"
-      :key="link"
-      :icon="icon"
-      :title="title"
-      :desc="desc"
-      :link="link"
-    />
+  <div class="nav-group">
+    <h3 v-if="props.title" :id="formatTitle" tabindex="-1">
+      {{ props.title }}
+      <a class="header-anchor" :href="`#${formatTitle}`" aria-hidden="true"></a>
+    </h3>
+    <div class="nav-links">
+      <NavLinkItem
+        v-for="{ icon, title, link, desc } in props.items"
+        :key="link"
+        :icon="icon"
+        :title="title"
+        :link="link"
+        :desc="desc"
+      />
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.nav-group {
+  margin-bottom: 0;
+  padding: 1rem;
+  border-radius: 0px;
+  background-color: var(--vp-c-bg-alt);
+  width: 100%;
+  position: relative;
+  flex: auto;
+}
+
 .nav-links {
-  --nav-gap: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  grid-row-gap: var(--nav-gap);
-  grid-column-gap: var(--nav-gap);
-  grid-auto-flow: row dense;
-  justify-content: center;
-  margin-top: var(--nav-gap);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.8rem;
+  width: 100%;
 }
 
-@each $media, $size in (500px: 140px, 640px: 155px, 768px: 175px, 960px: 200px, 1440px: 240px) {
-  @media (min-width: $media) {
-    .nav-links {
-      grid-template-columns: repeat(auto-fill, minmax($size, 1fr));
-    }
+@media (min-width: 640px) {
+  .nav-group {
+    padding: 1.5rem;
+    border-radius: 12px;
+    width: calc(50% - 0.75rem);
   }
-}
-
-@media (min-width: 960px) {
+  
   .nav-links {
-    --nav-gap: 20px;
+    gap: 12px;
   }
 }
 
 h3 {
-  font-size: 1.3rem;
-  padding: 0.5rem 1rem;
-  margin: 1rem 0;
-  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  padding: 0 0.25rem;
+  margin: 0;
   position: relative;
   overflow: hidden;
-}
-
-h3::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 4px;
-  background: #4285f4;
+  color: var(--vp-c-text-2);
+  font-weight: 400;
+  display: inline-block;
+  background-color: var(--vp-c-bg-soft-up);
+  border-radius: 4px;
 }
 </style>
