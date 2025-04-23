@@ -35,15 +35,18 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: List build output
+        run: ls -la .output/public
+
       - name: Copy CNAME file
-        run: cp .github/CNAME dist/
+        run: cp .github/CNAME .output/public/
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-pages
-          build_dir: dist
+          build_dir: .output/public
           commit_message: "Deploy to GitHub Pages"
-          force: true
+          keep_history: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
