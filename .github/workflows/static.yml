@@ -1,10 +1,13 @@
-name: Deploy VitePress Site
+name: Deploy Nuxt Site
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  docs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,16 +27,26 @@ jobs:
           node-version: 18
           cache: pnpm
 
-      - name: Build VitePress site
-        run: pnpm run build
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Generate static site
+        run: pnpm run generate
+        env:
+          NODE_ENV: production
+
+      - name: List build output
+        run: ls -la .output/public
 
       - name: Copy CNAME file
-        run: cp .github/CNAME .vitepress/dist/
+        run: cp .github/CNAME .output/public/
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-pages
-          build_dir: .vitepress/dist
+          build_dir: .output/public
+          commit_message: "Deploy to GitHub Pages"
+          keep_history: true
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} 
