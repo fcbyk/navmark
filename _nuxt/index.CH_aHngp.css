@@ -1,0 +1,1 @@
+.will-change-text{will-change:font-size,color,transform}.list-enter-active,.list-leave-active{transition:all .3s ease-in-out}.list-enter-from,.list-leave-to{opacity:0;transform:translateY(30px) scale(.9)}.list-move{transition:transform .3s ease-in-out}.will-change-transform{transition:all .2s ease-in-out}
