@@ -41,6 +41,9 @@ jobs:
       - name: Copy CNAME file
         run: cp .github/CNAME .output/public/
 
+      - name: Add .nojekyll to disable Jekyll
+        run: touch .output/public/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2
         with:
