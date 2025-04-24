@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
+  build:
   build:
     runs-on: ubuntu-latest
 
@@ -51,5 +55,8 @@ jobs:
           build_dir: .output/public
           commit_message: "Deploy to GitHub Pages"
           keep_history: true
+          build_dir: .output/public
+          commit_message: "Deploy to GitHub Pages"
+          keep_history: true
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} 
